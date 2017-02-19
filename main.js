@@ -170,8 +170,8 @@ DWAPS.prototype = {
 	zoom: function(zoomPlus)
 	{
 		this.options.TAILLE_POLICE = zoomPlus ? 
-									this.options.TAILLE_POLICE+1 :
-									this.options.TAILLE_POLICE-1;
+									parseInt(this.options.TAILLE_POLICE)+1 :
+									parseInt(this.options.TAILLE_POLICE)-1;
 
 
 		if(this.options.TAILLE_POLICE >= this.options.TAILLE_POLICE_MAX)
