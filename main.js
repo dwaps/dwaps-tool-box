@@ -65,7 +65,10 @@ DWAPS.prototype = {
 	    TAILLE_POLICE: 15,
 	    TAILLE_POLICE_MAX: 20,
 	    TAILLE_POLICE_MIN: 10,
-	    ECART_ENTRE_BOUTONS: 10
+	    ECART_ENTRE_BOUTONS: 10,
+	    POS_COL_BTS: "col-xs-offset-4 col-xs-4",
+	    ICON_BT_PLUS: "glyphicon-plus",
+	    ICON_BT_MOINS: "glyphicon-minus"
 	},
 
 	init: function()
@@ -91,13 +94,14 @@ DWAPS.prototype = {
 		var row = document.createElement('div');
 		var	col = row.cloneNode();
 		row.className = "row";
-		col.className = "col-xs-1 text-center";
+		col.className = this.options.POS_COL_BTS + " text-center";
 
 		
 		// Création bt moins
 		this.btPlus = document.createElement('link');
-		this.btPlus.className = "btn " + this.options.BTS_ZOOM_COLOR + " glyphicon";
+		this.btPlus.className = "btn " + this.options.BTS_ZOOM_COLOR + " glyphicon ";
 		this.btPlus.href = "#";
+		this.btPlus.style.marginRight = this.options.ECART_ENTRE_BOUTONS + this.options.UNITE;
 
 		// Création bt moins
 		this.btMoins = this.btPlus.cloneNode();
@@ -105,8 +109,8 @@ DWAPS.prototype = {
 		// Paramétrage des boutons
 		this.btPlus.id += "zoomer";
 		this.btMoins.id += "dezoomer";
-		this.btPlus.className += " glyphicon-plus";
-		this.btMoins.className += " glyphicon-minus";
+		this.btPlus.className += this.options.ICON_BT_PLUS;
+		this.btMoins.className += this.options.ICON_BT_MOINS;
 
 		// Construction DOM
 		col.appendChild(this.btPlus);
