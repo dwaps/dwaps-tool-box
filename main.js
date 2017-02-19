@@ -7,6 +7,17 @@
 * Date : 	19/02/2017
 **/
 
+/**
+ * -----------------
+ *   DOCUMENTATION
+ * -----------------
+ * 
+ * FONCTION ZOOM :
+ * 1/ Insérer script dwaps-tool-box/main.js dans page html
+ * 2/ Insérer balise <dwaps-zoom></dwaps-zoom> à l'emplacement souhaité pour les boutons de zoom
+ * 3/ Appliquer la classe .zoomable au texte cible
+ */
+
 
 document.addEventListener(
 	'DOMContentLoaded',
@@ -20,6 +31,24 @@ document.addEventListener(
 );
 
 
+
+// Fonction de détection du dossier racine de dwaps-tool-box
+function captureVendorsFolder()
+{
+	var allScripts = document.querySelectorAll('script'), folder;
+
+	allScripts.forEach(
+		function(s)
+		{
+			if(s.src.match("dwaps-tool-box"))
+				folder = s.src.replace("/main.js", "");
+		}
+	);
+
+	return folder;
+}
+
+
 // Objet DWAPS
 
 var DWAPS = function() {};
@@ -28,7 +57,7 @@ DWAPS.prototype = {
 	options:
 	{
 		UNITE: "px",
-		DOSSIER_VENDORS: "lib",
+		RACINE_DWAPS_TOOL_BOX: captureVendorsFolder(),
 
 		// ZOOM
 		ID_BLOC_BOUTONS_ZOOM: "bloc-boutons-zoom",
@@ -43,7 +72,7 @@ DWAPS.prototype = {
 	{
 		var link = document.createElement('link');
 			link.rel = "stylesheet";
-			link.href = this.options.DOSSIER_VENDORS + "/bootstrap/dist/css/bootstrap.min.css";
+			link.href = this.options.RACINE_DWAPS_TOOL_BOX + "/lib/bootstrap/dist/css/bootstrap.min.css";
 
 		document.head.appendChild(link);
 	},
