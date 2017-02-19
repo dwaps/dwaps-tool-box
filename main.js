@@ -48,11 +48,26 @@ function captureVendorsFolder()
 	return folder;
 }
 
+// Fonction de récupération de la taille de police sauvegardée
+function getFontSizeSaved()
+{
+	var fontSize = 18;
+
+	if(localStorage)
+	{
+		fontSize = localStorage.getItem('dwaps-fontSize');
+	}
+
+	return fontSize;
+}
+
 
 // Objet DWAPS
 
 var DWAPS = function() {};
+
 DWAPS.prototype = {
+
 	// PARAMETRAGE
 	options:
 	{
@@ -62,22 +77,33 @@ DWAPS.prototype = {
 		// ZOOM
 		ID_BLOC_BOUTONS_ZOOM: "bloc-boutons-zoom",
 		BTS_ZOOM_COLOR: "btn-success", /* Couleurs bootstrap */
-	    TAILLE_POLICE: 15,
-	    TAILLE_POLICE_MAX: 20,
+	    TAILLE_POLICE: getFontSizeSaved(),
+	    TAILLE_POLICE_MAX: 30,
 	    TAILLE_POLICE_MIN: 10,
 	    ECART_ENTRE_BOUTONS: 10,
 	    POS_COL_BTS: "col-xs-offset-4 col-xs-4",
 	    ICON_BT_PLUS: "glyphicon-plus",
-	    ICON_BT_MOINS: "glyphicon-minus"
+	    ICON_BT_MOINS: "glyphicon-minus",
+
+	    // MESSAGES INFORMATIFS
+	    ALERT: "Désolé, la fonctionnalité pour le stockage ne fonctionne pas !",
+	    TIME_ALERT: 2000,
+	    DEV_MAIL: "contact@dwaps.fr" // Placez votre mail ici !
 	},
 
 	init: function()
 	{
-		var link = document.createElement('link');
-			link.rel = "stylesheet";
-			link.href = this.options.RACINE_DWAPS_TOOL_BOX + "/lib/bootstrap/dist/css/bootstrap.min.css";
+		var link = document.querySelector('bootstrap-css');
 
-		document.head.appendChild(link);
+		if(!link)
+		{
+			var link = document.createElement('link');
+				link.id = "bootstrap-css";
+				link.rel = "stylesheet";
+				link.href = this.options.RACINE_DWAPS_TOOL_BOX + "/lib/bootstrap/dist/css/bootstrap.min.css";
+
+			document.head.appendChild(link);
+		}
 	},
 
 	initZoom: function()
@@ -107,8 +133,6 @@ DWAPS.prototype = {
 		this.btMoins = this.btPlus.cloneNode();
 
 		// Paramétrage des boutons
-		this.btPlus.id += "zoomer";
-		this.btMoins.id += "dezoomer";
 		this.btPlus.className += this.options.ICON_BT_PLUS;
 		this.btMoins.className += this.options.ICON_BT_MOINS;
 
@@ -161,5 +185,50 @@ DWAPS.prototype = {
 
 
 		this.textToZoom.style.fontSize = this.options.TAILLE_POLICE + this.options.UNITE;
+
+		this.saveZoomLevel();
+	},
+
+	saveZoomLevel: function()
+	{
+		if(localStorage)
+		{
+			localStorage.setItem("dwaps-fontSize", this.options.TAILLE_POLICE);
+		}
+		else
+		{
+			var alert = document.querySelector('#alert');
+
+			if(!alert)
+			{
+				var alert = document.createElement('div');
+					alert.id = "alert";
+					alert.className = "text-center";
+					alert.innerHTML = '<h4>' + this.options.ALERT + '</h4><p><a style="color:red" href="mailto:' + this.options.DEV_MAIL + '">Contactez le développeur</a></p>';
+					alert.setAttribute('style', '\
+						position: absolute;\
+						top: 0;\
+						bottom: 0;\
+						left: 0;\
+						right: 0;\
+						padding-top: 90px;\
+						background: black;\
+						color: white;\
+						font-weight: bold;\
+						');
+				document.body.appendChild(alert);
+			}
+
+			alert.style.display = "block";
+
+			setTimeout(
+				function()
+				{
+					alert.style.display = "none";
+				},
+				this.options.TIME_ALERT
+			);
+
+		}
 	}
 };
