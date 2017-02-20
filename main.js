@@ -112,60 +112,72 @@ DWAPS.prototype = {
 		// RECUPERATION DE LA BALISE POUR LE ZOOM (<dwaps-zoom></dwaps-zoom>)
 		// ET CONSTRUCTION DES ELEMENTS (boutons...)
 		var blocZoom = document.querySelector('dwaps-zoom');
+
+		if(blocZoom)
+		{
 			blocZoom.id = this.options.ID_BLOC_BOUTONS_ZOOM;
 			blocZoom.className = "container";
 
 
-		// Gestion affichage via bootstrap
-		// Création ligne et colonnes de chaque bouton
-		var row = document.createElement('div');
-		var	col = row.cloneNode();
-		row.className = "row";
-		col.className = this.options.POS_COL_BTS + " text-center";
+			// Gestion affichage via bootstrap
+			// Création ligne et colonnes de chaque bouton
+			var row = document.createElement('div');
+			var	col = row.cloneNode();
+			row.className = "row";
+			col.className = this.options.POS_COL_BTS + " text-center";
 
-		
-		// Création bt moins
-		this.btPlus = document.createElement('link');
-		this.btPlus.className = "btn " + this.options.BTS_ZOOM_COLOR + " glyphicon ";
-		this.btPlus.href = "#";
-		this.btPlus.style.marginRight = this.options.ECART_ENTRE_BOUTONS + this.options.UNITE;
+			
+			// Création bt moins
+			this.btPlus = document.createElement('link');
+			this.btPlus.className = "btn " + this.options.BTS_ZOOM_COLOR + " glyphicon ";
+			this.btPlus.href = "#";
+			this.btPlus.style.marginRight = this.options.ECART_ENTRE_BOUTONS + this.options.UNITE;
 
-		// Création bt moins
-		this.btMoins = this.btPlus.cloneNode();
+			// Création bt moins
+			this.btMoins = this.btPlus.cloneNode();
 
-		// Paramétrage des boutons
-		this.btPlus.className += this.options.ICON_BT_PLUS;
-		this.btMoins.className += this.options.ICON_BT_MOINS;
+			// Paramétrage des boutons
+			this.btPlus.className += this.options.ICON_BT_PLUS;
+			this.btMoins.className += this.options.ICON_BT_MOINS;
 
-		// Construction DOM
-		col.appendChild(this.btPlus);
-		col.appendChild(this.btMoins);
-		row.appendChild(col);
-		blocZoom.appendChild(row);
+			// Construction DOM
+			col.appendChild(this.btPlus);
+			col.appendChild(this.btMoins);
+			row.appendChild(col);
+			blocZoom.appendChild(row);
 
-		// Capture texte à zoomer/dézoomer
-		this.textToZoom = document.querySelector('.zoomable');
-		this.textToZoom.style.fontSize = this.options.TAILLE_POLICE + this.options.UNITE;
+			// Capture texte à zoomer/dézoomer
+			this.textToZoom = document.querySelector('.zoomable');
+			this.textToZoom.style.fontSize = this.options.TAILLE_POLICE + this.options.UNITE;
 
-		// Gestion du clic des boutons
-		var THIS = this;
+			// Gestion du clic des boutons
+			var THIS = this;
 
-		this.btPlus
-			.addEventListener(
-				'click',
-				function()
-				{
-					THIS.zoom(true);
-				}
-		);
-		this.btMoins
-			.addEventListener(
-				'click',
-				function()
-				{
-					THIS.zoom(false);
-				}
-		);
+			this.btPlus
+				.addEventListener(
+					'click',
+					function()
+					{
+						THIS.zoom(true);
+					}
+			);
+			this.btMoins
+				.addEventListener(
+					'click',
+					function()
+					{
+						THIS.zoom(false);
+					}
+			);
+		}
+		else
+		{
+			if(localStorage)
+			{
+				if(localStorage.getItem('dwaps-fontSize') > 0)
+					localStorage.removeItem('dwaps-fontSize');
+			}
+		}
 	},
 
 	zoom: function(zoomPlus)
