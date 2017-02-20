@@ -94,12 +94,19 @@ DWAPS.prototype = {
 
 	init: function()
 	{
-		var link = document.querySelector('bootstrap-css');
+		var links = document.querySelectorAll('link'), bootstrapFound = false;
 
-		if(!link)
+		links.forEach(
+			function(l)
+			{
+				if(l.href.match("bootstrap"))
+					bootstrapFound = true;
+			}
+		);
+
+		if(!bootstrapFound)
 		{
 			var link = document.createElement('link');
-				link.id = "bootstrap-css";
 				link.rel = "stylesheet";
 				link.href = this.options.RACINE_DWAPS_TOOL_BOX + "/lib/bootstrap/dist/css/bootstrap.min.css";
 
