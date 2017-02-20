@@ -5,7 +5,9 @@ Caisse à outils rassemblant diverses petites fonctionnalités utiles (demandée
 
 ## Installation
 `git clone https://github.com/dwaps/dwaps-tool-box`
+
 `cd dwaps-tool-box`
+
 `bower install`
 
 ## Utilisation
