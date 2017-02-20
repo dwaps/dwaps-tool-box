@@ -55,7 +55,8 @@ function getFontSizeSaved()
 
 	if(localStorage)
 	{
-		fontSize = localStorage.getItem('dwaps-fontSize');
+		var fs = localStorage.getItem('dwaps-fontSize');
+		if(fs) fontSize = fs;
 	}
 
 	return fontSize;

@@ -27,7 +27,7 @@ Caisse à outils rassemblant diverses petites fonctionnalités utiles (demandée
 **Pour la fonction zoom**
 
 1. Insérer balise `<dwaps-zoom></dwaps-zoom>` à l'emplacement souhaité pour les boutons de zoom
-2. Appliquer la classe .zoomable au texte cible
+2. Appliquer la classe `.zoomable` au texte cible
 
 ---
 
