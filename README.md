@@ -31,4 +31,4 @@ Caisse à outils rassemblant diverses petites fonctionnalités utiles (demandée
 
 ---
 
-[® DWAPS Formation - Michael Cornillon] (http://dwaps.fr "DWAPS")
+[® DWAPS Formation - Michael Cornillon](http://dwaps.fr "DWAPS")
